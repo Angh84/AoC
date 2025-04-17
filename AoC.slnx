@@ -1,1 +1,5 @@
-﻿<Solution />
+﻿<Solution>
+  <Project Path="src\AoC.Core\AoC.Core.csproj" Type="Classic C#" />
+  <Project Path="src\AoC.Runner\AoC.Runner.csproj" Type="Classic C#" />
+  <Project Path="src\AoC.Solutions\AoC.Solutions.csproj" Type="Classic C#" />
+</Solution>
