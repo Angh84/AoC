@@ -28,12 +28,12 @@ public class RunBenchmarkCommand
 
         Console.WriteLine($"Running benchmark for Year {_year}");
         Console.WriteLine("Day | Part 1 | Part 2 | Total");
-        Console.WriteLine("----|--------|--------|------");
+        Console.WriteLine("----|----------|----------|----------");
 
         foreach (var solution in solutions)
         {
             var result = await _runner.RunSolution(solution.Solution!, _year, solution.Day, false);
-            Console.WriteLine($"{solution.Day,2} | {result.PartOneTime,6:F2}ms | {result.PartTwoTime,6:F2}ms | {result.PartOneTime + result.PartTwoTime,6:F2}ms");
+            Console.WriteLine($"{solution.Day,3:D2} | {result.PartOneTime,6:F2}ms | {result.PartTwoTime,6:F2}ms | {result.PartOneTime + result.PartTwoTime,6:F2}ms");
         }
     }
 

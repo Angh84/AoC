@@ -25,7 +25,7 @@ else switch (args.Length)
     }
     case >= 2 when args[0].Equals("benchmark", StringComparison.CurrentCultureIgnoreCase):
     {
-        var year = args.Length >= 3 ? int.Parse(args[2]) : DateTime.Now.Year;
+        var year = args.Length >= 2 ? int.Parse(args[1]) : DateTime.Now.Year;
         var benchmarkCommand = new RunBenchmarkCommand(solutionRunner, year);
         await benchmarkCommand.Execute();
         break;
