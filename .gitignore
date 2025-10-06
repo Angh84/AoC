@@ -3,3 +3,6 @@ obj/
 /packages/
 riderModule.iml
 /_ReSharper.Caches/
+/inputs/
+/src/AoC.Runner/appsettings.local.json
+.idea/

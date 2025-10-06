@@ -5,10 +5,10 @@ namespace AoC.Runner.Configuration;
 public class AppSettings
 {
     // AoC session token for downloading inputs
-    public string SessionToken { get; set; }
+    public required string SessionToken { get; set; }
         
     // Base paths for different directories
-    public string InputsBasePath { get; set; }
+    public required string InputsBasePath { get; set; }
         
     // Flags for runner behavior
     public bool RunTestsByDefault { get; set; }
@@ -18,7 +18,7 @@ public class AppSettings
     public int DefaultYear { get; set; }
         
     // URL template for downloading inputs
-    public string InputUrlTemplate { get; set; }
+    public required string InputUrlTemplate { get; set; }
 
     // Static method to load settings from appsettings.json
     public static AppSettings Load()
@@ -33,7 +33,7 @@ public class AppSettings
         var settings = new AppSettings
         {
             // Default values if not specified in config
-            SessionToken = config["SessionToken"],
+            SessionToken = config["SessionToken"] ?? throw new InvalidOperationException(),
             InputsBasePath = config["InputsBasePath"] ?? "inputs",
             RunTestsByDefault = bool.Parse(config["RunTestsByDefault"] ?? "true"),
             AutoDownloadInputs = bool.Parse(config["AutoDownloadInputs"] ?? "true"),
