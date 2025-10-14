@@ -1,5 +1,6 @@
 ﻿using AoC.Core.Attributes;
 using AoC.Core.Interfaces;
+using AoC.Solutions.Utils;
 
 namespace AoC.Solutions.Year2015;
 
@@ -8,7 +9,7 @@ public class Day05 : ISolution
 {
     public string SolvePartOne(string input)
     {
-        var rows = input.Split("\n", StringSplitOptions.RemoveEmptyEntries);
+        var rows = input.SplitLines();
         var niceStrings = rows.Count(IsNicePartOne);
         return niceStrings.ToString();
     }
@@ -38,7 +39,7 @@ public class Day05 : ISolution
 
     public string SolvePartTwo(string input)
     {
-        var rows = input.Split("\n", StringSplitOptions.RemoveEmptyEntries);
+        var rows = input.SplitLines();
         var niceStrings = rows.Count(IsNicePartTwo);
         return niceStrings.ToString();
     }
