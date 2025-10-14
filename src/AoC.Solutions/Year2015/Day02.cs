@@ -8,6 +8,7 @@ namespace AoC.Solutions.Year2015;
 public class Day02 : ISolution
 {
     public string TestInput { get; }
+    public string TestInputPartTwo => TestInput;
     public string ExpectedOutputPartOne { get; }
     public string ExpectedOutputPartTwo { get; }
     

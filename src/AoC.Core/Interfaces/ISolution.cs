@@ -6,6 +6,7 @@ public interface ISolution
     string SolvePartTwo(string input);
     
     string TestInput { get; }
+    string TestInputPartTwo { get; }
     string ExpectedOutputPartOne { get; }
     string ExpectedOutputPartTwo { get; }
 }

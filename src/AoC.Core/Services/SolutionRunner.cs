@@ -58,10 +58,10 @@ namespace AoC.Core.Services
                 result.TestsRun = true;
                 result.TestPassedPartOne = partOneCorrect;
 
-                // Only run part two test if part one passes and expected output exists
+                // Only run part two test if part one passes and the expected output exists
                 if (partOneCorrect && !string.IsNullOrEmpty(solution.ExpectedOutputPartTwo))
                 {
-                    var testPartTwo = solution.SolvePartTwo(solution.TestInput);
+                    var testPartTwo = solution.SolvePartTwo(solution.TestInputPartTwo);
                     result.TestPassedPartTwo = testPartTwo == solution.ExpectedOutputPartTwo;
                     return result is { TestPassedPartOne: true, TestPassedPartTwo: true };
                 }

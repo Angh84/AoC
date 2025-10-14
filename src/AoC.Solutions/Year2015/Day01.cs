@@ -29,6 +29,7 @@ public class Day01: ISolution
     }
 
     public string TestInput => "())";
+    public string TestInputPartTwo => TestInput;
     public string ExpectedOutputPartOne => "-1";
     public string ExpectedOutputPartTwo => "3";
 }
