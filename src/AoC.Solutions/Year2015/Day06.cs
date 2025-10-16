@@ -9,50 +9,73 @@ public class Day06 : ISolution
 {
     public string SolvePartOne(string input)
     {
-        var lights = ResetLightMatrix();
+        Func<bool, LightAction, bool> actionToExecute = (current, action) => action switch
+        {
+            LightAction.Toggle => !current,
+            LightAction.TurnOn => true,
+            LightAction.TurnOff => false,
+            _ => current
+        };
+        var lights = ResetLightMatrix<bool>();
         lights = input
             .SplitLines()
             .Select(ParseInstruction)
-            .Aggregate(lights, ExecuteInstruction);
+            .Aggregate(lights, (grid, instruction) =>
+                ExecuteInstructionOnGrid(grid, instruction, actionToExecute));
 
         return lights.Values.Count(i => i).ToString();
     }
 
-    private Dictionary<string, bool> ExecuteInstruction(Dictionary<string, bool> lights, LightInstruction instruction)
+    public string SolvePartTwo(string input)
+    {
+        Func<long, LightAction, long> actionToExecute = (current, action) => action switch
+        {
+            LightAction.Toggle => current + 2,
+            LightAction.TurnOn => current + 1,
+            LightAction.TurnOff => Math.Max(current - 1, 0),
+            _ => current
+        };
+        var lights = ResetLightMatrix<long>();
+        var sum = input
+            .SplitLines()
+            .Select(ParseInstruction)
+            .Aggregate(lights, (grid, instruction) => ExecuteInstructionOnGrid(grid, instruction, actionToExecute))
+            .Sum(kvp => kvp.Value);
+
+        return sum.ToString();
+    }
+
+    private static Dictionary<(int, int), TValue> ExecuteInstructionOnGrid<TValue>(
+        Dictionary<(int, int), TValue> lights,
+        LightInstruction instruction,
+        Func<TValue, LightAction, TValue> applyAction)
     {
         for (var x = instruction.FromPosition.x; x <= instruction.ToPosition.x; x++)
         {
             for (var y = instruction.FromPosition.y; y <= instruction.ToPosition.y; y++)
             {
-                lights[x.ToString() + ',' + y] = instruction.Action switch
-                {
-                    LightAction.Toggle => !lights[x.ToString() + ',' + y],
-                    LightAction.TurnOn => true,
-                    LightAction.TurnOff => false,
-                    _ => lights[x.ToString() + ',' + y]
-                };
+                lights[(x, y)] = applyAction(lights[(x, y)], instruction.Action);
             }
         }
 
         return lights;
     }
 
-    private Dictionary<string, bool> ResetLightMatrix()
+    private static Dictionary<(int, int), T> ResetLightMatrix<T>() where T : struct
     {
-        var result = new Dictionary<string, bool>();
+        var result = new Dictionary<(int, int), T>();
         for (var x = 0; x < 1000; x++)
         {
             for (var y = 0; y < 1000; y++)
             {
-                var currentPosition = x.ToString() + ',' + y;
-                result.TryAdd(currentPosition, false);
+                result.TryAdd((x, y), default);
             }
         }
 
         return result;
     }
 
-    private LightInstruction ParseInstruction(string line)
+    private static LightInstruction ParseInstruction(string line)
     {
         var parts = line.Split(' ');
         LightAction action;
@@ -85,10 +108,6 @@ public class Day06 : ISolution
         };
     }
 
-    public string SolvePartTwo(string input)
-    {
-        return string.Empty;
-    }
 
     public string TestInput { get; }
     public string TestInputPartTwo { get; }
